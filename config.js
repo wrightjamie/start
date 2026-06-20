@@ -75,13 +75,11 @@ const CONFIG = {
             {
               "type": "links",
               "title": "Squadron Resources",
-              "columns": 5,
+              "columns": 3,
               "links": [
                 { "title": "RAFAC Website", "url": "https://www.raf.mod.uk/aircadets/", "icon": "globe" },
-                { "title": "Squadron Calendar", "url": "#", "icon": "calendar" },
-                { "title": "Uniform Guidelines", "url": "#", "icon": "shirt-folded" },
-                { "title": "SharePoint", "url": "https://rafac.sharepoint.com", "icon": "microsoft-teams-logo" },
-                { "title": "Welfare", "url": "#", "icon": "heart" }
+                { "title": "Uniform Guidelines", "url": "https://www.raf.mod.uk/aircadets/cadets/uniform/", "icon": "shirt-folded" },
+                { "title": "Welfare", "url": "https://www.raf.mod.uk/aircadets/safeguarding/", "icon": "heart" }
               ]
             }
           ]
@@ -101,12 +99,12 @@ const CONFIG = {
               "columns": 2,
               "links": [
                 { "title": "Cadet Portal", "url": "https://cadets.bader.mod.uk", "icon": "airplane-tilt" },
-                { "title": "Ultilearn", "url": "https://learning.bader.mod.uk", "icon": "book-open" },
-                { "title": "Rank Structure", "url": "#", "icon": "star" },
-                { "title": "Aviation Training", "url": "#", "icon": "airplane" },
-                { "title": "First Aid", "url": "#", "icon": "first-aid" },
-                { "title": "Marksmanship", "url": "#", "icon": "target" },
-                { "title": "DofE", "url": "https://www.edofe.org/", "icon": "backpack" }
+                { "title": "Bader Learn", "url": "https://learning.bader.mod.uk", "icon": "book-open" },
+                { "title": "First Aid", "url": "https://www.sja.org.uk/", "icon": "first-aid" },
+                { "title": "DofE", "url": "https://www.edofe.org/", "icon": "backpack" },
+                { "title": "TG21 / AV Med", "url": "https://rafac.sharepoint.com", "icon": "file-text" },
+                { "title": "Uniform Request", "url": "https://cadets.bader.mod.uk", "icon": "t-shirt" },
+                { "title": "Claim Badges", "url": "https://cadets.bader.mod.uk", "icon": "medal" }
               ]
             }
           ]
@@ -120,14 +118,12 @@ const CONFIG = {
               "title": "Staff Resources",
               "columns": 2,
               "links": [
+                { "title": "Bader SharePoint", "url": "https://rafac.sharepoint.com", "icon": "microsoft-teams-logo" },
                 { "title": "Volunteer Portal", "url": "https://volunteer.bader.mod.uk", "icon": "users" },
                 { "title": "Bader Home Page", "url": "https://bader.mod.uk", "icon": "database" },
-                { "title": "Training Portal", "url": "#", "icon": "chalkboard-teacher" },
+                { "title": "Training Portal", "url": "https://learning.bader.mod.uk", "icon": "chalkboard-teacher" },
                 { "title": "SMS", "url": "https://sms.bader.mod.uk", "icon": "desktop" },
-                { "title": "ACPs / APs", "url": "#", "icon": "folder-open" },
-                { "title": "Event Planning", "url": "#", "icon": "map-trifold" },
-                { "title": "Equipment Issue", "url": "#", "icon": "package" },
-                { "title": "Mess / Social", "url": "#", "icon": "coffee" }
+                { "title": "Key RAFAC Docs", "url": "https://rafac.sharepoint.com", "icon": "folder-open" }
               ]
             }
           ]
