@@ -1,5 +1,7 @@
 # RAFAC Squadron Homepage Dashboard
 
+![Dashboard Preview](assets/dashboard_preview.png)
+
 A fully customizable, glassmorphic start page and dashboard originally designed for RAF Air Cadets (RAFAC) squadrons, but adaptable for any team or personal use.
 
 It runs entirely in the browser using static HTML, CSS, and JavaScript. There are no backend servers required, making it perfect for hosting on a NAS, a simple web server, or directly from your local file system.
