@@ -121,9 +121,9 @@ function toggleSidebar(show) {
             <input type="number" id="setting-bg-int" value="${CONFIG.bgInterval || 0}" min="0" />
           </div>
           <div class="form-group">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <label>Background URLs</label>
-              <button id="add-bg-btn" style="background: none; border: none; color: var(--raf-light-blue); cursor: pointer;" title="Add Background"><i class="ph ph-plus"></i></button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <label style="margin: 0;">Background URLs</label>
+              <button id="add-bg-btn" style="background: rgba(0, 47, 95, 0.4); border: 1px dashed var(--raf-light-blue); color: var(--raf-light-blue); cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem; display: flex; align-items: center; gap: 0.25rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(0, 47, 95, 0.8)'" onmouseout="this.style.background='rgba(0, 47, 95, 0.4)'"><i class="ph ph-plus"></i> Add</button>
             </div>
             <details>
               <summary style="cursor: pointer; color: var(--raf-light-blue); margin-bottom: 0.5rem; font-size: 0.85rem;">Show Backgrounds...</summary>
