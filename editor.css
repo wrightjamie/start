@@ -162,6 +162,17 @@ body.edit-mode-active {
 }
 .inline-edit-btn:hover { opacity: 1; }
 
+.weather-location .inline-edit-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  opacity: 1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  margin-left: 0.25rem;
+}
+.weather-location .inline-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 .link-del-btn {
   background: none;
   border: none;
