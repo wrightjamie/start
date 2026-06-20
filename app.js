@@ -95,33 +95,129 @@ function toggleSidebar(show) {
     sidebarEl.className = 'editor-sidebar glass-panel';
     sidebarEl.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-        <h3 style="margin: 0;">Config Code</h3>
-        <div>
-          <button id="global-settings-btn" style="background: none; border: none; color: var(--raf-light-blue); cursor: pointer; font-size: 1.2rem; margin-right: 0.5rem;" title="Global Settings"><i class="ph ph-gear"></i></button>
-          <button id="close-editor-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;" title="Close Editor"><i class="ph ph-x"></i></button>
+        <div class="sidebar-tabs" style="margin-bottom: 0; border-bottom: none;">
+          <button id="tab-btn-settings" class="sidebar-tab-btn active">Settings</button>
+          <button id="tab-btn-code" class="sidebar-tab-btn">Code</button>
+        </div>
+        <button id="close-editor-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;" title="Close Editor"><i class="ph ph-x"></i></button>
+      </div>
+      
+      <div id="tab-settings" class="sidebar-tab-content active">
+        <div class="settings-form" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label>Page Title</label>
+            <input type="text" id="setting-title" value="${CONFIG.title || ''}" />
+          </div>
+          <div class="form-group">
+            <label>Logo URL</label>
+            <input type="text" id="setting-logo" value="${CONFIG.logoUrl || ''}" placeholder="assets/roundel.svg" />
+          </div>
+          <div class="form-group">
+            <label>Max Width</label>
+            <input type="text" id="setting-width" value="${CONFIG.maxWidth || '1400px'}" />
+          </div>
+          <div class="form-group">
+            <label>Background Cycle (mins)</label>
+            <input type="number" id="setting-bg-int" value="${CONFIG.bgInterval || 0}" min="0" />
+          </div>
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Background URLs</label>
+              <button id="add-bg-btn" style="background: none; border: none; color: var(--raf-light-blue); cursor: pointer;" title="Add Background"><i class="ph ph-plus"></i></button>
+            </div>
+            <details>
+              <summary style="cursor: pointer; color: var(--raf-light-blue); margin-bottom: 0.5rem; font-size: 0.85rem;">Show Backgrounds...</summary>
+              <div id="bg-list-container" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+            </details>
+          </div>
         </div>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Copy this code and paste it into your <strong>config.js</strong> file on your NAS to save your layout permanently.</p>
-      <a href="https://phosphoricons.com/" target="_blank" style="color: var(--raf-light-blue); text-decoration: none; font-size: 0.85rem; margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 0.25rem;"><i class="ph ph-arrow-square-out"></i> Browse Phosphor Icons</a>
-      <textarea id="config-output" readonly></textarea>
-      <div style="display: flex; gap: 0.5rem;">
-        <button id="copy-config-btn" class="glass-panel" style="flex: 1;"><i class="ph ph-copy"></i> Copy</button>
-        <button id="dl-config-btn" class="glass-panel" style="flex: 1;"><i class="ph ph-download-simple"></i> Download</button>
+
+      <div id="tab-code" class="sidebar-tab-content">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.5rem 0;">Copy this code and paste it into your <strong>config.js</strong> file on your NAS to save your layout permanently.</p>
+        <a href="https://phosphoricons.com/" target="_blank" style="color: var(--raf-light-blue); text-decoration: none; font-size: 0.85rem; margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 0.25rem;"><i class="ph ph-arrow-square-out"></i> Browse Phosphor Icons</a>
+        <textarea id="config-output" readonly></textarea>
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="copy-config-btn" class="glass-panel" style="flex: 1;"><i class="ph ph-copy"></i> Copy</button>
+          <button id="dl-config-btn" class="glass-panel" style="flex: 1;"><i class="ph ph-download-simple"></i> Download</button>
+        </div>
       </div>
     `;
     document.body.appendChild(sidebarEl);
     updateConfigOutput();
     
-    document.getElementById('global-settings-btn').onclick = () => {
-      const bgs = prompt("Background Image URLs (comma separated):", (CONFIG.backgrounds || []).join(', '));
-      if (bgs !== null) {
-        CONFIG.backgrounds = bgs.split(',').map(s => s.trim()).filter(s => s);
-      }
-      const int = prompt("Background rotation interval (minutes, 0 to disable):", CONFIG.bgInterval || 5);
-      if (int !== null) {
-        CONFIG.bgInterval = parseFloat(int);
-      }
+    // Bind Tabs
+    const tabBtnSettings = document.getElementById('tab-btn-settings');
+    const tabBtnCode = document.getElementById('tab-btn-code');
+    const tabSettings = document.getElementById('tab-settings');
+    const tabCode = document.getElementById('tab-code');
+
+    tabBtnSettings.onclick = () => {
+      tabBtnSettings.classList.add('active');
+      tabBtnCode.classList.remove('active');
+      tabSettings.classList.add('active');
+      tabCode.classList.remove('active');
+    };
+
+    tabBtnCode.onclick = () => {
+      tabBtnCode.classList.add('active');
+      tabBtnSettings.classList.remove('active');
+      tabCode.classList.add('active');
+      tabSettings.classList.remove('active');
+    };
+
+    // Bind Settings Forms
+    const updateConfigSetting = (key, val) => {
+      CONFIG[key] = val;
       updateApp();
+    };
+
+    document.getElementById('setting-title').oninput = (e) => updateConfigSetting('title', e.target.value);
+    document.getElementById('setting-logo').oninput = (e) => updateConfigSetting('logoUrl', e.target.value);
+    document.getElementById('setting-width').oninput = (e) => updateConfigSetting('maxWidth', e.target.value);
+    document.getElementById('setting-bg-int').onchange = (e) => updateConfigSetting('bgInterval', parseFloat(e.target.value) || 0);
+
+    const renderBgList = () => {
+      const container = document.getElementById('bg-list-container');
+      if (!container) return;
+      container.innerHTML = '';
+      (CONFIG.backgrounds || []).forEach((bgUrl, i) => {
+        const row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.gap = '0.5rem';
+        
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = bgUrl;
+        input.style.flex = '1';
+        input.placeholder = "e.g. assets/bg1.png";
+        input.onchange = (e) => {
+          CONFIG.backgrounds[i] = e.target.value;
+          updateApp();
+        };
+        
+        const delBtn = document.createElement('button');
+        delBtn.innerHTML = '<i class="ph ph-trash"></i>';
+        delBtn.style.cssText = 'background: rgba(255,0,0,0.2); border: 1px solid rgba(255,0,0,0.3); color: white; cursor: pointer; padding: 0 0.75rem; border-radius: 4px; transition: background 0.2s;';
+        delBtn.onmouseover = () => delBtn.style.background = 'rgba(255,0,0,0.5)';
+        delBtn.onmouseout = () => delBtn.style.background = 'rgba(255,0,0,0.2)';
+        delBtn.onclick = () => {
+          CONFIG.backgrounds.splice(i, 1);
+          renderBgList();
+          updateApp();
+        };
+        
+        row.appendChild(input);
+        row.appendChild(delBtn);
+        container.appendChild(row);
+      });
+    };
+    renderBgList();
+
+    document.getElementById('add-bg-btn').onclick = () => {
+      if (!CONFIG.backgrounds) CONFIG.backgrounds = [];
+      CONFIG.backgrounds.push('');
+      renderBgList();
     };
 
     document.getElementById('close-editor-btn').onclick = () => {
@@ -219,6 +315,7 @@ function initApp(config) {
     }
   }
 
+  document.documentElement.style.setProperty('--max-container-width', config.maxWidth || '1400px');
   document.title = config.title || "Homepage";
 
   const appRoot = document.getElementById('app-root');
@@ -511,15 +608,12 @@ function renderWidget(node, parentArray, index) {
 
   if (node.widgetType === 'title') {
     panel.classList.add('widget-title');
-    panel.classList.remove('glass-panel'); // Title has no glass background
+    panel.classList.remove('glass-panel'); 
     
-    const svgHTML = `
-      <svg class="raf-roundel" width="56" height="56" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="50" fill="#00247D" />
-        <circle cx="50" cy="50" r="33.3" fill="#FFFFFF" />
-        <circle cx="50" cy="50" r="16.7" fill="#CF142B" />
-      </svg>
-    `;
+    let logoHTML = '';
+    if (CONFIG.logoUrl) {
+      logoHTML = `<img src="${CONFIG.logoUrl}" class="raf-roundel" alt="Logo" style="width: 56px; height: 56px;">`;
+    }
     
     const h1 = document.createElement('h1');
     h1.textContent = CONFIG.title || "Homepage";
@@ -535,7 +629,7 @@ function renderWidget(node, parentArray, index) {
       h1.appendChild(editTitleBtn);
     }
 
-    panel.insertAdjacentHTML('beforeend', svgHTML);
+    panel.insertAdjacentHTML('beforeend', logoHTML);
     panel.appendChild(h1);
   }
   else if (node.widgetType === 'time') {
@@ -601,6 +695,23 @@ function renderWidget(node, parentArray, index) {
             }
           };
         }
+        const minusBtn = currentEl.querySelector('.weather-minus-btn');
+        if (minusBtn) {
+          minusBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (node.forecastDays === undefined) node.forecastDays = 4;
+            if (node.forecastDays > 0) { node.forecastDays--; updateApp(); }
+          };
+        }
+        
+        const plusBtn = currentEl.querySelector('.weather-plus-btn');
+        if (plusBtn) {
+          plusBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (node.forecastDays === undefined) node.forecastDays = 4;
+            if (node.forecastDays < 5) { node.forecastDays++; updateApp(); }
+          };
+        }
       }
     };
 
@@ -637,7 +748,11 @@ function renderWidget(node, parentArray, index) {
           <div class="weather-desc">${info.desc}</div>
           <div class="weather-location" style="display: flex; align-items: center; justify-content: center; gap: 0.25rem;">
             ${node.locationName.toUpperCase()}
-            ${isEditMode ? `<button class="inline-edit-btn weather-edit-btn" style="display: flex;"><i class="ph ph-pencil-simple"></i></button>` : ''}
+            ${isEditMode ? `
+              <button class="inline-edit-btn weather-edit-btn" style="display: flex;" title="Edit Location"><i class="ph ph-pencil-simple"></i></button>
+              <button class="inline-edit-btn weather-minus-btn" style="display: flex;" title="Fewer Days"><i class="ph ph-minus"></i></button>
+              <button class="inline-edit-btn weather-plus-btn" style="display: flex;" title="More Days"><i class="ph ph-plus"></i></button>
+            ` : ''}
           </div>
         `;
         bindWeatherEditBtn();
@@ -646,7 +761,8 @@ function renderWidget(node, parentArray, index) {
         let forecastHTML = '';
         const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-        for (let i = 1; i <= 4; i++) {
+        const daysToRender = node.forecastDays !== undefined ? node.forecastDays : 4;
+        for (let i = 1; i <= daysToRender; i++) {
           const date = new Date(daily.time[i]);
           const dayName = days[date.getDay()];
           const maxTemp = Math.round(daily.temperature_2m_max[i]);
@@ -668,7 +784,11 @@ function renderWidget(node, parentArray, index) {
           <div class="weather-desc" style="color: #ffcccc;">Weather Unavailable</div>
           <div class="weather-location" style="display: flex; align-items: center; justify-content: center; gap: 0.25rem;">
             ${node.locationName.toUpperCase()}
-            ${isEditMode ? `<button class="inline-edit-btn weather-edit-btn" style="display: flex;"><i class="ph ph-pencil-simple"></i></button>` : ''}
+            ${isEditMode ? `
+              <button class="inline-edit-btn weather-edit-btn" style="display: flex;" title="Edit Location"><i class="ph ph-pencil-simple"></i></button>
+              <button class="inline-edit-btn weather-minus-btn" style="display: flex;" title="Fewer Days"><i class="ph ph-minus"></i></button>
+              <button class="inline-edit-btn weather-plus-btn" style="display: flex;" title="More Days"><i class="ph ph-plus"></i></button>
+            ` : ''}
           </div>
         `;
         bindWeatherEditBtn();

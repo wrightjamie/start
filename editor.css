@@ -65,6 +65,7 @@ body.edit-mode-active {
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  overflow-y: auto;
 }
 .editor-sidebar h3 { color: var(--raf-light-blue); margin-bottom: 0.5rem; }
 .editor-sidebar textarea {
@@ -98,54 +99,56 @@ body.edit-mode-active {
   outline: 2px dashed rgba(255,255,255,0.3);
   outline-offset: 4px;
 }
-.edit-outline:hover { outline-color: var(--raf-light-blue); }
 
 .edit-toolbar {
   position: absolute;
-  top: -24px;
+  top: -36px;
   right: 0;
-  background: var(--raf-light-blue);
+  background: var(--raf-dark-blue);
+  border: 1px solid rgba(255,255,255,0.2);
   color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
   font-size: 0.8rem;
-  padding: 2px 8px;
-  border-radius: 4px 4px 0 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   z-index: 10;
 }
-.toolbar-column {
-  right: auto;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.toolbar-widget, .toolbar-grid {
-  right: 0;
-  left: auto;
-}
-.edit-toolbar button {
-  background: none;
+.edit-toolbar span { font-weight: bold; color: var(--raf-light-blue); }
+.toolbar-btn-group { display: flex; gap: 0.25rem; }
+.toolbar-btn-group button {
+  background: rgba(255,255,255,0.1);
   border: none;
   color: white;
   cursor: pointer;
-  padding: 0;
-}
-.edit-toolbar button:hover { color: #ffcccc; }
-
-.toolbar-btn-group {
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
   display: flex;
-  gap: 8px;
-}
-
-.toolbar-row {
-  top: -2px;
-  left: -8px;
-  right: auto;
-  transform: translateX(-100%);
-  border-radius: 4px;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+}
+.toolbar-btn-group button:hover { background: var(--raf-light-blue); }
+
+.add-row-btn {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.05);
+  border: 2px dashed rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.add-row-btn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--raf-light-blue);
+  color: white;
 }
 
 .inline-edit-btn {
@@ -154,39 +157,106 @@ body.edit-mode-active {
   color: var(--raf-light-blue);
   cursor: pointer;
   margin-left: 0.5rem;
-  font-size: inherit;
+  opacity: 0.5;
+  transition: opacity 0.2s;
 }
-
-.add-row-btn {
-  width: 100%;
-  margin-top: 1rem;
-  cursor: pointer;
-  border: 1px dashed var(--raf-light-blue) !important;
-  background: rgba(0, 47, 95, 0.4) !important;
-  color: var(--raf-light-blue);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-.add-row-btn:hover { background: rgba(0, 47, 95, 0.8) !important; }
-
-.add-link-btn {
-  border: 1px dashed var(--raf-light-blue) !important;
-  background: rgba(0, 47, 95, 0.4) !important;
-}
-.add-link-btn:hover { background: rgba(0, 47, 95, 0.8) !important; }
+.inline-edit-btn:hover { opacity: 1; }
 
 .link-del-btn {
   background: none;
   border: none;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.3);
   cursor: pointer;
-  margin-left: auto;
-  font-size: 1.2rem;
+  transition: color 0.2s;
 }
 .link-del-btn:hover { color: #ff4444; }
 
 .edit-link-mode { cursor: pointer !important; }
+
+/* Global Settings Form */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--raf-light-blue);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Sidebar Tabs */
+.sidebar-tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-tab-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.sidebar-tab-btn:hover {
+  color: white;
+}
+
+.sidebar-tab-btn.active {
+  color: var(--raf-light-blue);
+}
+
+.sidebar-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--raf-light-blue);
+}
+
+.sidebar-tab-content {
+  display: none;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sidebar-tab-content.active {
+  display: flex;
+}

@@ -1,5 +1,7 @@
 const CONFIG = {
   "title": "2459 Squadron",
+  "logoUrl": "assets/roundel.svg",
+  "maxWidth": "1400px",
   "backgrounds": [
     "assets/bg_typhoon_sunset_1781985512563.png",
     "assets/bg_red_arrows_1781985520592.png",
@@ -57,7 +59,8 @@ const CONFIG = {
               "widgetType": "weather", 
               "locationName": "Poulton-le-Fylde", 
               "latitude": 53.847, 
-              "longitude": -2.992 
+              "longitude": -2.992,
+              "forecastDays": 4
             }
           ]
         }
