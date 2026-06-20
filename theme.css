@@ -1,0 +1,18 @@
+:root {
+  /* RAF Brand Guidelines Colors */
+  --raf-deep-blue: #002F5F;
+  --raf-light-blue: #5D8AA8;
+  --raf-accent-blue: #1378D7;
+  --raf-red: #C60C30;
+  --raf-white: #FFFFFF;
+
+  /* UI Colors */
+  --glass-bg: rgba(0, 47, 95, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --hover-bg: rgba(93, 138, 168, 0.4); /* using light blue for hover state */
+
+  /* Background Image */
+  --bg-image: url('assets/background.png');
+}

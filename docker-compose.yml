@@ -1,0 +1,10 @@
+version: '3'
+services:
+  squadron-homepage:
+    image: nginx:alpine
+    container_name: squadron-homepage
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro

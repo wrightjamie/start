@@ -1,0 +1,192 @@
+:root {
+  --editor-width: clamp(400px, calc(100vw - 1400px - 4rem), 800px);
+}
+
+body.edit-mode-active {
+  padding-right: var(--editor-width); /* Space for sidebar */
+}
+
+.edit-toggle-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+  background: rgba(0, 47, 95, 0.4);
+  font-size: 1.5rem;
+}
+.edit-toggle-btn span { display: none; }
+.edit-toggle-btn:hover { 
+  background: rgba(0, 47, 95, 0.9); 
+  color: white; 
+}
+
+.next-bg-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: calc(2rem + 60px);
+  z-index: 1000;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+  background: rgba(0, 47, 95, 0.4);
+  font-size: 1.5rem;
+}
+.next-bg-btn:hover { 
+  background: rgba(0, 47, 95, 0.9); 
+  color: white; 
+}
+
+.editor-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--editor-width);
+  height: 100vh;
+  z-index: 900;
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid var(--glass-border);
+  background: rgba(0, 20, 45, 0.95);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+.editor-sidebar h3 { color: var(--raf-light-blue); margin-bottom: 0.5rem; }
+.editor-sidebar textarea {
+  flex-grow: 1;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #00ff00;
+  font-family: monospace;
+  padding: 1rem;
+  border-radius: 8px;
+  resize: none;
+  margin-bottom: 1rem;
+}
+#copy-config-btn, #dl-config-btn {
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  border: 1px solid var(--raf-light-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+#copy-config-btn:hover, #dl-config-btn:hover { background: var(--raf-light-blue); }
+
+/* On-Canvas Edit Controls */
+.edit-outline {
+  position: relative;
+  outline: 2px dashed rgba(255,255,255,0.3);
+  outline-offset: 4px;
+}
+.edit-outline:hover { outline-color: var(--raf-light-blue); }
+
+.edit-toolbar {
+  position: absolute;
+  top: -24px;
+  right: 0;
+  background: var(--raf-light-blue);
+  color: white;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+.toolbar-column {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toolbar-widget, .toolbar-grid {
+  right: 0;
+  left: auto;
+}
+.edit-toolbar button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+}
+.edit-toolbar button:hover { color: #ffcccc; }
+
+.toolbar-btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar-row {
+  top: -2px;
+  left: -8px;
+  right: auto;
+  transform: translateX(-100%);
+  border-radius: 4px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.inline-edit-btn {
+  background: none;
+  border: none;
+  color: var(--raf-light-blue);
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: inherit;
+}
+
+.add-row-btn {
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  border: 1px dashed var(--raf-light-blue) !important;
+  background: rgba(0, 47, 95, 0.4) !important;
+  color: var(--raf-light-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.add-row-btn:hover { background: rgba(0, 47, 95, 0.8) !important; }
+
+.add-link-btn {
+  border: 1px dashed var(--raf-light-blue) !important;
+  background: rgba(0, 47, 95, 0.4) !important;
+}
+.add-link-btn:hover { background: rgba(0, 47, 95, 0.8) !important; }
+
+.link-del-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 1.2rem;
+}
+.link-del-btn:hover { color: #ff4444; }
+
+.edit-link-mode { cursor: pointer !important; }
