@@ -10,7 +10,7 @@ const path = require('path');
   
   // Load the local HTML file
   const filePath = `file://${path.resolve(__dirname, 'index.html')}`;
-  await page.goto(filePath, { waitUntil: 'networkidle0' });
+  await page.goto(filePath, { waitUntil: 'load' });
 
   // Give the weather API a second to fully render
   await new Promise(r => setTimeout(r, 2000));
