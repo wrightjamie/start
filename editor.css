@@ -130,6 +130,25 @@ body.edit-mode-active {
 }
 .toolbar-btn-group button:hover { background: var(--raf-light-blue); }
 
+.toolbar-column {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.toolbar-widget {
+  right: 0;
+  left: auto;
+}
+.toolbar-row {
+  top: -2px;
+  left: -8px;
+  right: auto;
+  transform: translateX(-100%);
+  border-radius: 4px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 .add-row-btn {
   width: 100%;
   padding: 1rem;
